@@ -17,10 +17,10 @@ function title {
   : ${2=$1}
 
   case "$TERM" in
-    cygwin|xterm*|putty*|rxvt*|ansi)
-      print -Pn "\e]2;$2:q\a" # set window name
-      print -Pn "\e]1;$1:q\a" # set tab name
-      ;;
+      cygwin|xterm*|putty*|rxvt*|ansi)
+          print -Pn "\e]2;$2:q\a" # set window name
+          print -Pn "\e]1;$1:q\a" # set tab name
+          ;;
     screen*)
       print -Pn "\ek$1:q\e\\" # set screen hardstatus
       ;;
@@ -41,11 +41,12 @@ function title {
   esac
 }
 
-ZSH_THEME_TERM_TAB_TITLE_IDLE="%15<..<%~%<<" #15 char left truncated PWD
-ZSH_THEME_TERM_TITLE_IDLE="%n@%m: %~"
+# ZSH_THEME_TERM_TAB_TITLE_IDLE="%15<..<%~%<<" #15 char left truncated PWD
+ZSH_THEME_TERM_TAB_TITLE_IDLE="${MACH}"
+ZSH_THEME_TERM_TITLE_IDLE="${MACH}: %~"
 # Avoid duplication of directory in terminals with independent dir display
 if [[ "$TERM_PROGRAM" == Apple_Terminal ]]; then
-  ZSH_THEME_TERM_TITLE_IDLE="%n@%m"
+  ZSH_THEME_TERM_TITLE_IDLE="${MACH}"
 fi
 
 # Runs before showing the prompt
@@ -76,7 +77,7 @@ function omz_termsupport_preexec {
 }
 
 precmd_functions+=(omz_termsupport_precmd)
-preexec_functions+=(omz_termsupport_preexec)
+# preexec_functions+=(omz_termsupport_preexec)
 
 
 # Keep Apple Terminal.app's current working directory updated
